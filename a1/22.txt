@@ -1,1 +1,105 @@
-22222222222222222
+
+
+
+exp tzos/tzos@bossdb file=20190219.dmp tables=BS_TB_REGION,BS_TB_SITE,BS_TB_STAFF,BS_TB_PARTY,bs_tb_organization,bs_tb_building_infobs_tb_channel_attr,bs_tb_channel_member_attr,bs_tb_channel_region_attr,bs_tb_staff_auth_log,bs_tb_privilege,bs_tb_role,bs_tb_staff_role,bs_tb_role_privilege,bs_tb_staff_privilege
+
+
+create table BS_TB_REGION9                   tablespace bs_ts_data as select * from BS_TB_REGION                ;
+create table BS_TB_SITE9                     tablespace bs_ts_data as select * from BS_TB_SITE                  ;
+create table BS_TB_STAFF9                    tablespace bs_ts_data as select * from BS_TB_STAFF                 ;
+create table BS_TB_PARTY9                    tablespace bs_ts_data as select * from BS_TB_PARTY                 ;
+create table bs_tb_organization9             tablespace bs_ts_data as select * from bs_tb_organization          ;
+create table bs_tb_building_info9            tablespace bs_ts_data as select * from bs_tb_building_info         ;
+create table bs_tb_channel_attr9             tablespace bs_ts_data as select * from bs_tb_channel_attr          ;
+create table bs_tb_channel_member_attr9      tablespace bs_ts_data as select * from bs_tb_channel_member_attr   ;
+create table bs_tb_channel_region_attr9      tablespace bs_ts_data as select * from bs_tb_channel_region_attr   ;
+create table bs_tb_staff_auth_log9           tablespace bs_ts_data as select * from bs_tb_staff_auth_log        ;
+create table bs_tb_privilege9                tablespace bs_ts_data as select * from bs_tb_privilege             ;
+create table bs_tb_role9                     tablespace bs_ts_data as select * from bs_tb_role                  ;
+create table bs_tb_staff_role9               tablespace bs_ts_data as select * from bs_tb_staff_role            ;
+create table bs_tb_role_privilege9           tablespace bs_ts_data as select * from bs_tb_role_privilege        ;
+create table bs_tb_staff_privilege9          tablespace bs_ts_data as select * from bs_tb_staff_privilege       ;
+
+truncate table BS_TB_REGION                 ;     
+truncate table BS_TB_SITE                   ;
+truncate table BS_TB_STAFF                  ;
+truncate table BS_TB_PARTY                  ;
+truncate table bs_tb_organization           ;
+truncate table bs_tb_building_info          ;
+truncate table bs_tb_channel_attr           ;
+truncate table bs_tb_channel_member_attr    ;
+truncate table bs_tb_channel_region_attr    ;
+truncate table bs_tb_staff_auth_log         ;
+truncate table bs_tb_privilege              ;
+truncate table bs_tb_role                   ;
+truncate table bs_tb_staff_role             ;
+truncate table bs_tb_role_privilege         ;
+truncate table bs_tb_staff_privilege        ;
+
+
+exp tzos/tzos@bossdb file=20190219_1.dmp tables=bs_tb_cooperant_pard
+
+
+. importing TZOS's objects into TZOS
+. importing TZOS's objects into TZOS
+. . importing table                 "BS_TB_REGION"      94516 rows imported
+. . importing table                   "BS_TB_SITE"        396 rows imported
+. . importing table                  "BS_TB_STAFF"       4170 rows imported
+. . importing table                  "BS_TB_PARTY"       6731 rows imported
+. . importing table           "BS_TB_ORGANIZATION"        289 rows imported
+. . importing table          "BS_TB_BUILDING_INFO"
+IMP-00058: ORACLE error 1438 encountered
+ORA-01438: value larger than specified precision allowed for this column
+IMP-00028: partial import of previous table rolled back: 63697 rows rolled back
+. . importing table           "BS_TB_CHANNEL_ATTR"        364 rows imported
+. . importing table    "BS_TB_CHANNEL_MEMBER_ATTR"       2008 rows imported
+. . importing table    "BS_TB_CHANNEL_REGION_ATTR"        108 rows imported
+. . importing table         "BS_TB_STAFF_AUTH_LOG"       4152 rows imported
+. . importing table              "BS_TB_PRIVILEGE"       1028 rows imported
+. . importing table                   "BS_TB_ROLE"        987 rows imported
+. . importing table             "BS_TB_STAFF_ROLE"       4439 rows imported
+. . importing table         "BS_TB_ROLE_PRIVILEGE"      97346 rows imported
+. . importing table        "BS_TB_STAFF_PRIVILEGE"      10153 rows imported
+IMP-00041: Warning: object created with compilation warnings
+ "CREATE TRIGGER "TZOS".TRI_RPT_MID_SITE_TO_REGION"
+ "    AFTER INSERT OR DELETE ON TZOS.BS_TB_SITE"
+ "    FOR EACH ROW"
+ "begin"
+ "    if DELETING THEN"
+ "       DELETE DBCRMRPT.BS_TB_MID_SITETOREGION WHERE SITE_ID = :NEW.SITE_ID "
+ ";"
+ "    END IF ;"
+ "    "
+ "    IF INSERTING THEN "
+ "       DBMS_OUTPUT.PUT_LINE('TEST') ;"
+ "    END IF ;"
+ "    EXEC DBCRMRPT.PRC_RPT_MID_SITE_REG_SYC ;"
+ "end TRI_RPT_MID_SITE_TO_REGION;"
+About to enable constraints...
+Import terminated successfully with warnings.
+
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BUILDING_ID                               NOT NULL NUMBER(9)           BUILDING_ID          NUMBER(9)     Y                        
+ REGION_ID                                 NOT NULL NUMBER(12)          REGION_ID            NUMBER(12)    Y                        
+ BUILDING_CELL                             NOT NULL NUMBER(3)           BUILDING_CELL        NUMBER(2)     Y                        
+ BUILDING_FLOOR                            NOT NULL NUMBER(3)           BUILDING_FLOOR       NUMBER(3)     Y                        
+ BUILDING_UNIT                             NOT NULL NUMBER(2)           BUILDING_UNIT        NUMBER(2)     Y                        
+ BUILDING_WAY                                       VARCHAR2(3)         BUILDING_WAY         VARCHAR2(3)   Y                        
+ FIRST_UNIT_WAY                                     VARCHAR2(3)         FIRST_UNIT_WAY       VARCHAR2(3)   Y                        
+ BUILDING_NAME                             NOT NULL VARCHAR2(100)       BUILDING_NAME        VARCHAR2(100) Y                        
+ BUILDING_DESC                                      VARCHAR2(250)       BUILDING_DESC        VARCHAR2(250) Y                        
+ BUILD_TYPE                                NOT NULL VARCHAR2(3)         BUILD_TYPE           VARCHAR2(3)   Y                        
+ PRIORITY                                  NOT NULL NUMBER(5)           PRIORITY             NUMBER(5)     Y                        
+ IS_REBUILD                                NOT NULL VARCHAR2(1)         IS_REBUILD           VARCHAR2(1)   Y        'N'             
+ REBUILD_TIME                                       DATE                REBUILD_TIME         DATE          Y                        
+ IS_HAVE_HALL                              NOT NULL VARCHAR2(1)         IS_HAVE_HALL         VARCHAR2(1)   Y        'N'             
+ FIRST_UNIT_DIRECTION                               VARCHAR2(3)         FIRST_UNIT_DIRECTION VARCHAR2(3)   Y                        
+ IS_EFFECTIVE                                       VARCHAR2(1)         IS_EFFECTIVE         VARCHAR2(1)   Y        'Y'             
+ COVERING_NUM                                       NUMBER(5)           COVERING_NUM         NUMBER(5)     Y        0               
+ LIVING_NUM                                NOT NULL NUMBER(5)           LIVING_NUM           NUMBER(5)     Y        0               
+ OTHER_OPERATOR                                     VARCHAR2(4)         OTHER_OPERATOR       VARCHAR2(4)   Y        '4OPA'          
+ BUILDING_CLASS                                     NUMBER(2)           BUILDING_CLASS       NUMBER(2)     Y        1               
+ OTHER_CLASS                                        NUMBER(2)           OTHER_CLASS          NUMBER(2)     Y        1               
+ ISCITY                                             VARCHAR2(1)         ISCITY               VARCHAR2(1)   Y        0               22222222222222222
